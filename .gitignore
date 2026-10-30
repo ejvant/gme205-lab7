@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.vscode/
+Thumbs.db
+desktop.ini
+.DS_Store
+*.log
+*.backup
+*.bak
