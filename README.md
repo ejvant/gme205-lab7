@@ -5,7 +5,7 @@
 
 ## Prerequisites
 
-- **PostgreSQL + PostGIS** – spatial database (versions listed in Database Preflight below)
+- **PostgreSQL + PostGIS** – spatial database
 - **pgAdmin 4** – runs the SQL scripts through the Query Tool
 - **VS Code** – edits SQL and Markdown files
 - **Git / GitHub** – version control and submission

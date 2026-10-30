@@ -1,9 +1,7 @@
 import os
-
 import psycopg
 from dotenv import load_dotenv
 
-# Load DB settings from the .env file (kept out of Git)
 load_dotenv()
 
 DB_CONFIG = {
@@ -16,7 +14,6 @@ DB_CONFIG = {
 
 
 def check_connection():
-    """Confirm that Python can reach PostgreSQL and PostGIS."""
     try:
         with psycopg.connect(**DB_CONFIG) as conn:
             row = conn.execute(
@@ -31,8 +28,8 @@ def check_connection():
         print("Database error:", error)
         return False
 
+
 def fetch_parcels_by_land_use(land_use):
-    """Return parcels with the given land use; geometry as GeoJSON in EPSG:4326."""
     query = """
         SELECT
             parcel_id,
@@ -47,14 +44,5 @@ def fetch_parcels_by_land_use(land_use):
     with psycopg.connect(**DB_CONFIG) as conn:
         return conn.execute(
             query,
-            (land_use,),   # value passed separately, not inside the SQL text
+            (land_use,),
         ).fetchall()
-
-if __name__ == "__main__":
-    # Temporary checks
-    check_connection()
-
-    rows = fetch_parcels_by_land_use("Residential")
-    print("Rows returned:", len(rows))
-    if rows:
-        print("First database row:", rows[0])
