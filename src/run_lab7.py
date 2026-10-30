@@ -2,7 +2,7 @@ import json
 
 from database import fetch_parcels_by_land_use
 from spatial import Parcel
-from exchange import build_feature_collection
+from exchange import build_feature_collection, validate_feature_collection
 
 rows = fetch_parcels_by_land_use("Residential")
 print("Rows returned:", len(rows))
@@ -34,3 +34,10 @@ if collection["features"]:
             indent=2,
         ),
     )
+
+try:
+    validate_feature_collection(collection)
+    print("GeoJSON contract check: PASSED")
+except ValueError as error:
+    print("GeoJSON contract check: FAILED")
+    print(error)
