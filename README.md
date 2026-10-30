@@ -67,7 +67,7 @@ The object is converted into a standard dictionary with type, id, geometry, and 
 5. *Why is `ST_Transform(..., 4326)` placed at the exchange boundary?*
 The data remains in EPSG:32651 (meters) inside the database for accurate spatial measurements, so area and distance calculations stay correct. GeoJSON expects WGS 84 longitude/latitude, so the conversion happens only when the data leaves the system.
 6. *Why is a valid GeoJSON file an interoperability exercise without an API?*
-Interoperability means that different applications can use and understand the same data format. A valid GeoJSON file can be opened in different GIS programs without needing to know how it was created. An API would only be a different way to share and deliver the data. 
+Interoperability means that different applications can use and understand the same data format. A valid GeoJSON file can be opened in different GIS programs without needing to know how it was created. This was shown when GitHub automatically rendered `output/residential_parcels.geojson` as an interactive map, displaying P-001 and P-002 without any knowledge of my Python code. An API would only be a different way to share and deliver the data. 
 
 ## Author
 Enoch Joshua V. Antonio  
