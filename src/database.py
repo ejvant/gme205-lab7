@@ -31,7 +31,30 @@ def check_connection():
         print("Database error:", error)
         return False
 
+def fetch_parcels_by_land_use(land_use):
+    """Return parcels with the given land use; geometry as GeoJSON in EPSG:4326."""
+    query = """
+        SELECT
+            parcel_id,
+            land_use,
+            ST_AsGeoJSON(
+                ST_Transform(geom, 4326)
+            ) AS geometry_json
+        FROM lab6.parcels
+        WHERE land_use = %s
+        ORDER BY parcel_id;
+    """
+    with psycopg.connect(**DB_CONFIG) as conn:
+        return conn.execute(
+            query,
+            (land_use,),   # value passed separately, not inside the SQL text
+        ).fetchall()
 
 if __name__ == "__main__":
-    # Temporary check
+    # Temporary checks
     check_connection()
+
+    rows = fetch_parcels_by_land_use("Residential")
+    print("Rows returned:", len(rows))
+    if rows:
+        print("First database row:", rows[0])
